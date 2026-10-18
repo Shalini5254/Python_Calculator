@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Python Calculator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #ede9fe);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: 380px;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4338ca;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #334155;
+            font-weight: bold;
+            margin-top: 16px;
+            margin-bottom: 7px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            font-size: 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #818cf8;
+            border-color: #4f46e5;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #4f46e5;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #3730a3;
+        }
+
+        .result {
+            margin-top: 22px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #dcfce7;
+            color: #166534;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        .result span {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .result strong {
+            font-size: 25px;
+        }
+
+        .error {
+            margin-top: 20px;
+            padding: 13px;
+            border-radius: 9px;
+            background: #fee2e2;
+            color: #b91c1c;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 22px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="calculator">
+        <h1>Simple Calculator</h1>
+        <p class="subtitle">Calculate quickly and easily</p>
+
+        <form method="POST" action="/">
+            <label for="num1">First Number</label>
+            <input
+                type="number"
+                id="num1"
+                name="num1"
+                step="any"
+                placeholder="Enter first number"
+                value="{{ num1 }}"
+                required
+            >
+
+            <label for="operation">Select Operation</label>
+            <select id="operation" name="operation">
+                <option value="+" {% if operation == "+" %}selected{% endif %}>
+                    Addition (+)
+                </option>
+                <option value="-" {% if operation == "-" %}selected{% endif %}>
+                    Subtraction (-)
+                </option>
+                <option value="*" {% if operation == "*" %}selected{% endif %}>
+                    Multiplication (×)
+                </option>
+                <option value="/" {% if operation == "/" %}selected{% endif %}>
+                    Division (÷)
+                </option>
+            </select>
+
+            <label for="num2">Second Number</label>
+            <input
+                type="number"
+                id="num2"
+                name="num2"
+                step="any"
+                placeholder="Enter second number"
+                value="{{ num2 }}"
+                required
+            >
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if result is not none %}
+            <div class="result">
+                <span>Calculation Result</span>
+                <strong>{{ result }}</strong>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="footer">
+            Built with Python and Flask
+        </div>
+    </main>
+</body>
+</html>
